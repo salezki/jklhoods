@@ -11,10 +11,10 @@ import os
 
 #consumer key, consumer secret, access token, access secret.
 
-ckey= 'TWITTER_CKEY' in os.environ
-csecret= 'TWITTER_CSECRET' in os.environ
-atoken= 'TWITTER_TOKEN'in os.environ 
-asecret= 'TWITTER_SECRET' in os.environ
+ckey= os.environ.get('TWITTER_CKEY')
+csecret= os.environ.get('TWITTER_CSECRET')
+atoken= os.environ.get('TWITTER_TOKEN')
+asecret= os.environ.get('TWITTER_SECRET')
 
 new = 0
 

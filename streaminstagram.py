@@ -10,9 +10,9 @@ import sqlite3 as sql3
 from datetime import datetime
 import os
 
-CLIENT_ID= 'INST_CLIENTID' in os.environ
-CLIENT_SECRET= 'INST_SECRET' in os.environ
-ACCESS_TOKEN= 'INST_TOKEN' in os.environ
+CLIENT_ID= os.environ.get('INST_CLIENTID')
+CLIENT_SECRET= os.environ.get('INST_SECRET')
+ACCESS_TOKEN= os.environ.get('INST_TOKEN') 
 
 COUNT = 1
 CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/callback'
