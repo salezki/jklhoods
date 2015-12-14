@@ -136,7 +136,7 @@ def callback():
 #tekee subscription-toiminnon 3 sekunnin kuluttua flask-sovelluksen kaynnistyttya
 def doSubscribe():
 	print "Subscription process starting"
-	time.sleep(3)
+	time.sleep(40)
 	global tag
 	subscribeToTag(tag)
 	print 'Subscription process ended'
