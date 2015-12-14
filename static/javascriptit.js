@@ -327,7 +327,7 @@ function alustaTwiitit() {
                 String(data.result[i])+'"></div>';
                 $(testi).insertAfter( "#uusia_twiitteja" );
             };
-            twitteriStriimi(10);
+            twitteriStriimi(data.result.length);
         }
     });
 }
