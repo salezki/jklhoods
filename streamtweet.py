@@ -61,6 +61,10 @@ class Listener(StreamListener):
 
 
 def runStream():
+    print ckey
+    print csecret
+    print atoken
+    print asecret
     auth = OAuthHandler(ckey, csecret)
     auth.set_access_token(atoken, asecret)
     twitterStream = Stream(auth, Listener())
