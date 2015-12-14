@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import multiprocessing
 import streaminstagram
@@ -103,7 +104,7 @@ class ApplicationProcess(multiprocessing.Process):
     
 def startApp():
     global app
-    #app.run(debug=True, host='localhost', port=8000, use_reloader=True)
+    #app.run(host='localhost', port=8000, use_reloader=True, debug=True)
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT')), use_reloader=True)
 
 

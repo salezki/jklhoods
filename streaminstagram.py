@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import Flask,request, Response,redirect,url_for
 from instagram import client, subscriptions
 from twisted.internet import reactor
@@ -19,7 +20,7 @@ CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/callback'
 #CALLBACK_LOCAL = 'http://localhost:5000/oauth_callback'
 #CALLBACK_TUNNEL = 'https://nzmpqlpmhe.localtunnel.me/realtime' #lt --port 8000 --subdomain nzmpqlpmhe
 
-tag = 'jyvaeskylae'
+tag = 'jyväskylä'
 subID = 0
 reactor = None
 
@@ -136,7 +137,7 @@ def callback():
 #tekee subscription-toiminnon 3 sekunnin kuluttua flask-sovelluksen kaynnistyttya
 def doSubscribe():
 	print "Subscription process starting"
-	time.sleep(20)
+	time.sleep(3)
 	global tag
 	subscribeToTag(tag)
 	print 'Subscription process ended'

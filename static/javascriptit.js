@@ -322,12 +322,12 @@ function alustaTwiitit() {
         url: '/alustaTweets',
         contentType: 'application/json',
         success: function(data) {
-            for (var i = data.result.length; i >= 0; i--) {
+            for (var i = 9; i >= 0; i--) {
                 var testi = '<div class="tweet" tweetID="'+
                 String(data.result[i])+'"></div>';
                 $(testi).insertAfter( "#uusia_twiitteja" );
             };
-            twitteriStriimi(data.result.length);
+            twitteriStriimi(10);
         }
     });
 }
