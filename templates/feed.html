@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SSM Developers</title>
+</head>
+<body>
+    <div class="div_lohko div_twitter" name="sisalto">
+    	<h2>Twitter</h2>
+        {% for item in tweets %}
+        <div name="update">
+            <fieldset>
+                <legend>{{ item[0] }}:</legend>
+                <p>{{ item[1] }}</p>
+            </fieldset>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

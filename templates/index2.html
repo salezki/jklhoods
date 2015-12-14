@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SSM Developers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+<style>
+ 
+  #tweet {
+    width: 400px !important;
+  }
+ 
+  #tweet iframe {
+    border: none !important;
+    box-shadow: none !important;
+  }
+ 
+</style>
+
+    <div class="div_main">
+        <nav>
+            <a href="">kissa</a>
+            <a href="">koira</a>
+            <a href="">kana</a>
+        </nav>
+        <div class="div_lohko div_twitter" name="sisalto">
+            <h2>Twitter</h2>
+            {% for item in tweets %}
+                <div class="tweet" tweetID="{{ item[0] }}"></div>
+            {% endfor %}
+
+
+        <div class="div_lohko">
+
+    </div>
+
+    <script sync src="https://platform.twitter.com/widgets.js"></script>
+ 
+    <script>
+        window.onload = (function(){
+    var tweets = document.getElementsByClassName("tweet");
+    for (i = 0; i < tweets.length; i++) {
+        var id = tweets[i].getAttribute("tweetID");
+        twttr.widgets.createTweet(id, tweets[i],{
+            conversation : 'none',    // or all
+            cards        : 'visible',  // or visible 
+            linkColor    : '#cc0000', // default is blue
+            theme        : 'light'    // or dark
+        }).then (function (el) {
+      el.contentDocument.querySelector(".footer").style.display = "none";
+    });
+    }; 
+  });
+
+ 
+    </script>
+
+</body>
+</html>

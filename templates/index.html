@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JKL Hoods</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script sync src="https://platform.twitter.com/widgets.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascriptit.js') }}"></script>
+    <script async defer src="https://platform.instagram.com/en_US/embeds.js"></script>
+</head>
+<body>  
+    <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <!--<div class="navbar-left"> -->
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand navi_text" id="show_all" href="" role="button" >Show all</a>
+                        <a class="navbar-brand navi_text" id="show_twitter" role="button" href="">Twitter
+                        <!-- <img src="{{ url_for('static', filename='TwitterLogo_#55acee.png')}}" alt="Twitter" class="twitter_logo"> -->
+                        </a>
+                        <a class="navbar-brand navi_text" id="show_insta" role="button" href="">Instagram</a>
+                        <!-- <a class="navbar-brand" id="peruuta" role="button" href="">Peruuta</a> -->
+                </div>
+
+
+                    <div class="navbar-right">
+
+                
+                    <!--<div class="navbar-right">-->
+                        
+                    <!-- </div> -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                        <ul class="nav navbar-nav">
+                            <li id="drop_twitter" class="dropdown">
+                                <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Twitter top hashtags  <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a id="peruuta_tagit_twitter" onclick="peruuta_tagit_twitter()">All hashtags</a></li>
+                                    <li><a id="twitter_top1" onclick="haeTagilla_tweet(this.text)" href="#"></a></li>
+                                    <li><a id="twitter_top2" onclick="haeTagilla_tweet(this.text)" href="#"></a></li>
+                                    <li><a id="twitter_top3" onclick="haeTagilla_tweet(this.text)" href="#"></a></li>
+                                    <li><a id="twitter_top4" onclick="haeTagilla_tweet(this.text)" href="#"></a></li>
+                                    <li><a id="twitter_top5" onclick="haeTagilla_tweet(this.text)" href="#"></a></li>
+                                </ul>
+                            </li>
+                            <li id="drop_instagram" class="dropdown">
+                                <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instagram top hashtags <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a id="peruuta_tagit_instagram" onclick="peruuta_tagit_instagram()">All hashtags</a></li>
+                                    <li><a id="instagram_top1" onclick="haeTagillaInsta(this.text)" href="#"></a></li>
+                                    <li><a id="instagram_top2" onclick="haeTagillaInsta(this.text)" href="#"></a></li>
+                                    <li><a id="instagram_top3" onclick="haeTagillaInsta(this.text)" href="#"></a></li>
+                                    <li><a id="instagram_top4" onclick="haeTagillaInsta(this.text)" href="#"></a></li>
+                                    <li><a id="instagram_top5" onclick="haeTagillaInsta(this.text)" href="#"></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <!--</div>-->
+                
+                    </div>
+            </div>
+    </nav>
+    <div class="container-fluid">  
+        <div class="row">
+            <div class="col-md-6" name="sisalto" id="div_twitter">
+                 <h2 class="twitter_header">Twitter</h2>
+            	<div hidden class="update_buttons" role="button" type="button" id="uusia_twiitteja" href="" >New Tweets</div>
+                <div class="update_buttons" id="hae_seuraavat" role="button" type="button" href="">Hae lisää</div>
+            </div>
+
+            <div class="col-md-6" id="div_insta">
+                <h2>Instagram</h2>
+				<div hidden class="update_buttons" role="button" type="button" id="uusia_posteja" href="" >New Instagram posts</div>
+				<div class="update_buttons" id="hae_seuraavat_instagram" role="button" type="button" href="">Hae lisää</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
