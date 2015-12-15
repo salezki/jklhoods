@@ -116,10 +116,10 @@ if __name__ == '__main__':
     flaskapp = ApplicationProcess()
     flaskapp.start()
     #print(os.environ.get('PORT'))
-    tweetStream = multiprocessing.Process(target=streamtweet.runStream)
-    tweetStream.start()
-    instagramSubscription = multiprocessing.Process(target=initializeInstagram)
-    instagramSubscription.start()
+    #tweetStream = multiprocessing.Process(target=streamtweet.runStream)
+    #tweetStream.start()
+    #instagramSubscription = multiprocessing.Process(target=initializeInstagram)
+    #instagramSubscription.start()
    
     while True:
         try:
