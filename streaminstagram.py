@@ -74,9 +74,9 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		if row:
 			return False
 		cur.execute("INSERT INTO instagram_posts (mediaID, userID, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
-			 (str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
+			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
-	except Exception e:
+	except Exception, e:
 		print e
 		return False
 	return True
@@ -91,7 +91,7 @@ def saveInstagramTags(id,caption):
 		for tag in tags:
 			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (%s, %s)", (id, tag))
 		con.commit()
-	except Exception e:
+	except Exception, e:
 		print e
 	con.close()
 
