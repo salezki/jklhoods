@@ -141,10 +141,10 @@ def callback():
 				logging.error('Instagram signature mismatch')
 	return Response("") #ei tarvitse vastausta.
 
-#tekee subscription-toiminnon 3 sekunnin kuluttua flask-sovelluksen kaynnistyttya
+#tekee subscription-toiminnon flask-sovelluksen kaynnistyttya
 def doSubscribe():
 	print "Subscription process starting"
-	time.sleep(3)
+	time.sleep(25)
 	global tag
 	subscribeToTag(tag)
 	print 'Subscription process ended'
