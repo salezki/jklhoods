@@ -97,7 +97,7 @@ def haeSeuraavat(tweetId):
 	try:
 		data_tweet = []
 		cur = con.cursor()
-		cur.execute('SELECT tweetID FROM twitter_tweets WHERE tweetID < %s LIMIT 10', (tweetId,))
+		cur.execute('SELECT tweetID FROM twitter_tweets WHERE tweetID < %s ORDER BY id DESC LIMIT 10', (tweetId,))
 		rows = cur.fetchall()
 		for row in rows:
 			data_tweet.append([str(row[0])])
