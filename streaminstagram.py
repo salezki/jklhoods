@@ -91,7 +91,7 @@ def saveInstagramTags(id,caption):
 		for tag in tags:
 			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (%s, %s)", (id, tag))
 		con.commit()
-	except Exception, e:
+	except Exception e:
 		print e
 	con.close()
 

@@ -33,6 +33,7 @@ def instagramPosts():
 		print e
 		sys.exit(1)
 			
+			
 # Hakee uusimmat postit
 def fetchInstagram(shortcode):
 	try:
@@ -47,6 +48,7 @@ def fetchInstagram(shortcode):
 		print e
 		sys.exit(1)
 
+		
 # Hakee uusimmat postit tagilla
 def fetchTagInstagram(req):
 	tagi = req["tagi"]
@@ -63,6 +65,7 @@ def fetchTagInstagram(req):
 		print e
 		sys.exit(1)
 
+		
 # Hakee vanhempia posteja
 def fetchNext(shortcode):
 	try:
@@ -77,6 +80,7 @@ def fetchNext(shortcode):
 		print e
 		sys.exit(1)
 
+		
 # Hae ensimmaista kertaa tagilla
 def hae_tagilla(req):
 	tagi = req["tagi"]
@@ -93,6 +97,7 @@ def hae_tagilla(req):
 		print e
 		sys.exit(1)
 
+		
 def haes_tagilla(req):
 	tagi = req["tagi"]
 	shortcode = req["instacode"]
