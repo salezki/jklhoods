@@ -51,8 +51,9 @@ class Listener(StreamListener):
         name = all_data["user"]["name"]
         screen_name = all_data["user"]["screen_name"]
         tagit = all_data["entities"]["hashtags"]
-        cur.execute("SELECT tweetID FROM twitter_tweets WHERE tweetID LIKE %s", (str(id)) )
+        cur.execute("SELECT tweetID FROM twitter_tweets WHERE tweetID LIKE %s", (str(id),) )
         row = cur.fetchone()
+        print row
         if row:
             return False
         cur.execute("INSERT INTO twitter_tweets (tweetID, time, username, screen_name) VALUES (%s, %s, %s, %s)",
