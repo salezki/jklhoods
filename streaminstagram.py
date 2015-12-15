@@ -76,8 +76,8 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		cur.execute("INSERT INTO instagram_posts (mediaID, userID, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			 (str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
-	except sql3.Error, e:
-		print "Error &s:" % e.args[0]
+	except Exception e:
+		print e
 		return False
 	return True
 
@@ -89,7 +89,7 @@ def saveInstagramTags(id,caption):
 		con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
-			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (?,?)", (id, tag))
+			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (%s, %s)", (id, tag))
 		con.commit()
 	except Exception, e:
 		print e
