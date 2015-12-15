@@ -430,7 +430,7 @@ function haeSeuraavat_tweet() {
                 String(data.result[i])+'"></div>';
                 $(testi).insertBefore( "#hae_seuraavat" );
             };
-            twitteriStriimi(-10);
+            twitteriStriimi(-Math.abs(count));
         }
     });
 }
@@ -452,7 +452,7 @@ function haeTagilla_tweet(tagi) {
                 String(data.result[i])+'"></div>';
                 $(testi).insertBefore( "#hae_seuraavat" );
             };
-            twitteriStriimi(10);
+            twitteriStriimi(count);
             clearInterval(ajastin_twitter);
             ajastin_twitter = setInterval(fetchTagTweets.bind(null, false, tagi), 5000);
             $("#uusia_twiitteja").off('click');

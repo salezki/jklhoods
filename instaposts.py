@@ -1,4 +1,7 @@
 import sqlite3 as lite
+import os
+import psycopg2
+import urlparse
 import sys
 from flask import jsonify
 
@@ -6,7 +9,15 @@ from flask import jsonify
 def instagramPosts():
 	con = None
 	try:
-		con = lite.connect('instagram.db')
+		urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse('DATABASE_URL')
+		con = psycopg2.connect(
+    		database=url.path[1:],
+    		user=url.username,
+    		password=url.password,
+    		host=url.hostname,
+    		port=url.port
+		)
 
 		data = []
 		cur = con.cursor()

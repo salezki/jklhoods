@@ -1,12 +1,23 @@
 #!/usr/bin/python
 import sqlite3 as lite
+import os
+import psycopg2
+import urlparse
 import sys
 from flask import jsonify
 
 def tagit_twitter():
 	con = None
 	try:
-		con = lite.connect('tweets.db')
+		urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse('DATABASE_URL')
+		con = psycopg2.connect(
+    		database=url.path[1:],
+    		user=url.username,
+    		password=url.password,
+    		host=url.hostname,
+    		port=url.port
+		)
 
 		top_hashtags = []
 		cur = con.cursor()

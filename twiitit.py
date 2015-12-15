@@ -1,4 +1,7 @@
 import sqlite3 as lite
+import os
+import psycopg2
+import urlparse
 import sys
 from flask import jsonify
 
@@ -6,7 +9,18 @@ def twiits():
 	con = None
 
 	try:
-		con = lite.connect('tweets.db')
+		#con = lite.connect('tweets.db')
+		
+		urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse('postgres://nhsougcuetzdop:MUYUIrmozV9xrvV5dJGKGuBSz0@ec2-54-217-240-205.eu-west-1.compute.amazonaws.com:5432/d9ql5si5hddrgi')
+		con = psycopg2.connect(
+			database=url.path[1:],
+			user=url.username,
+			password=url.password,
+			host=url.hostname,
+			port=url.port
+		)
+
 
 		tweets = []
 		cur = con.cursor()

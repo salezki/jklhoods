@@ -8,6 +8,9 @@ import sys, logging
 import time
 import multiprocessing
 import sqlite3 as sql3
+import os
+import psycopg2
+import urlparse
 from datetime import datetime
 import os
 
@@ -23,6 +26,16 @@ CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/callback'
 tag = 'jyväskylä'
 subID = 0
 reactor = None
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse('DATABASE_URL')
+con = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 
 def subscribeToTag(topic):
@@ -55,21 +68,17 @@ def fetchNewUpdate(amount=1):
 
 def savetoDataBase(id,userID,user,timestamp,shortcode):
 	try:
-		con = sql3.connect("instagram.db")
 		cur = con.cursor()
-		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE ?", (str(shortcode),))
+		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE %s", (str(shortcode),))
 		row = cur.fetchone()
 		if row:
-			con.close()
 			return False
-		cur.execute("INSERT INTO instagram_posts (mediaID, userID, username, time, shortcode) VALUES (?, ?, ?, ?, ?)",
+		cur.execute("INSERT INTO instagram_posts (mediaID, userID, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			 (str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
 	except sql3.Error, e:
 		print "Error &s:" % e.args[0]
-		con.close()
 		return False
-	con.close()
 	return True
 
 
@@ -77,14 +86,12 @@ def saveInstagramTags(id,caption):
 	tags = hashtaglist(caption)
 	print tags
 	try:
-		con = sql3.connect("instagram.db")
 		con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
 			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (?,?)", (id, tag))
 		con.commit()
 	except Exception, e:
-		con.close()
 		print e
 	con.close()
 
