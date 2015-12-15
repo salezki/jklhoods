@@ -104,8 +104,8 @@ class ApplicationProcess(multiprocessing.Process):
     
 def startApp():
     global app
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT')), use_reloader=False)
     #app.run(host='localhost', port=8000, use_reloader=True, debug=True)
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT')), use_reloader=True)
 
 
 def initializeInstagram():
@@ -115,11 +115,10 @@ def initializeInstagram():
 if __name__ == '__main__':
     flaskapp = ApplicationProcess()
     flaskapp.start()
-    #print(os.environ.get('PORT'))
-    #tweetStream = multiprocessing.Process(target=streamtweet.runStream)
-    #tweetStream.start()
-    #instagramSubscription = multiprocessing.Process(target=initializeInstagram)
-    #instagramSubscription.start()
+    tweetStream = multiprocessing.Process(target=streamtweet.runStream)
+    tweetStream.start()
+    instagramSubscription = multiprocessing.Process(target=initializeInstagram)
+    instagramSubscription.start()
    
     while True:
         try:

@@ -81,6 +81,3 @@ def runStream():
     auth.set_access_token(atoken, asecret)
     twitterStream = Stream(auth, Listener())
     twitterStream.filter(track=tags)
-
-if __name__ == '__main__':
-    runStream()
