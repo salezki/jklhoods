@@ -10,9 +10,9 @@ def twiits():
 
 	try:
 		#con = lite.connect('tweets.db')
-		
+
 		urlparse.uses_netloc.append("postgres")
-		url = urlparse.urlparse('postgres://nhsougcuetzdop:MUYUIrmozV9xrvV5dJGKGuBSz0@ec2-54-217-240-205.eu-west-1.compute.amazonaws.com:5432/d9ql5si5hddrgi')
+		url = urlparse.urlparse(os.environ['DATABASE_URL'])
 		con = psycopg2.connect(
 			database=url.path[1:],
 			user=url.username,

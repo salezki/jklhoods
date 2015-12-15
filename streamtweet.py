@@ -25,7 +25,7 @@ tags = [u"#jyväskylä", u"#jyvaskyla"]
 #con = sql3.connect("tweets.db")
 
 urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse('DATABASE_URL')
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
 con = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
