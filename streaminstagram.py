@@ -27,16 +27,6 @@ tag = 'jyväskylä'
 subID = 0
 reactor = None
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
-con = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
-
 
 def subscribeToTag(topic):
 	r = api.create_subscription(object = 'tag',
@@ -70,15 +60,15 @@ def fetchNewUpdate(amount=1):
 
 def savetoDataBase(id,userID,user,timestamp,shortcode):
 	try:
-		if not con:
-			global con
-			con = psycopg2.connect(
-				database=url.path[1:],
-				user=url.username,
-				password=url.password,
-				host=url.hostname,
-				port=url.port
-			)
+		urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse(os.environ['DATABASE_URL'])
+		con = psycopg2.connect(
+			database=url.path[1:],
+			user=url.username,
+			password=url.password,
+			host=url.hostname,
+			port=url.port
+		)
 		cur = con.cursor()
 		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE %s", (str(shortcode),))
 		row = cur.fetchone()
@@ -87,9 +77,12 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		cur.execute("INSERT INTO instagram_posts (mediaid, userid, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
+		con.close()
 	except Exception, e:
 		print "errori" 
 		print e
+		if con:
+			con.close()
 		return False
 	return True
 
@@ -98,6 +91,15 @@ def saveInstagramTags(id,caption):
 	tags = hashtaglist(caption)
 	print tags
 	try:
+		urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse(os.environ['DATABASE_URL'])
+		con = psycopg2.connect(
+			database=url.path[1:],
+			user=url.username,
+			password=url.password,
+			host=url.hostname,
+			port=url.port
+		)
 		print 'vaihe 1'
 		#con.text_factory = str
 		cur = con.cursor()
@@ -105,8 +107,11 @@ def saveInstagramTags(id,caption):
 			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, tag))
 		print 'vaihe 2'
 		con.commit()
+		con.close()
 	except Exception, e:
 		print e
+		if con:
+			con.close()
 
 
 # http://stackoverflow.com/questions/6331497/an-elegant-way-to-get-hashtags-out-of-a-string-in-python
