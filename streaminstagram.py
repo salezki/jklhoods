@@ -149,6 +149,7 @@ def callback():
 		if challenge:
 	 		return Response(challenge)
 	else: #POST
+			print 'post viesti'
 	 		x_hub_signature = request.headers.get('X-Hub-Signature')
 			raw_response    = request.data
 			if raw_response:
