@@ -1,15 +1,36 @@
-import sqlite3 as sql3
 from apscheduler.schedulers.blocking import BlockingScheduler	#pip install apscheduler==3.0.0
 from datetime import datetime,timedelta
 import time
 import logging
+import psycopg2
+import urlparse
 
 LIMIT = 400
+
+urlparse.uses_netloc.append("postgres")
+		url = urlparse.urlparse(os.environ['DATABASE_URL'])
+		con = psycopg2.connect(
+			database=url.path[1:],
+			user=url.username,
+			password=url.password,
+			host=url.hostname,
+			port=url.port
+		)
+
 
 sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', days=1)
 def doCleanUp():
+	if not con:
+		global con
+		con = psycopg2.connect(
+			database=url.path[1:],
+			user=url.username,
+			password=url.password,
+			host=url.hostname,
+			port=url.port
+		)
 	count1 = getInstagramCount()
 	count2 = getTweetsCount()
 
@@ -32,7 +53,6 @@ def doCleanUp():
 def getInstagramCount():
 	row = None
 	try:
-		con = sql3.connect("instagram.db")
 		cur = con.cursor()
 		cur.execute("SELECT COUNT(*) as count FROM instagram_posts")
 		row = cur.fetchone()
@@ -45,7 +65,6 @@ def getInstagramCount():
 def getTweetsCount():
 	row = None
 	try:
-		con = sql3.connect("tweets.db")
 		cur = con.cursor()
 		cur.execute("SELECT COUNT(*) as count FROM twitter_tweets")
 		row = cur.fetchone()
@@ -58,7 +77,6 @@ def getTweetsCount():
 def getTagsCount():
 	row = None
 	try:
-		con = sql3.connect("tweets.db")
 		cur = con.cursor()
 		cur.execute("SELECT COUNT(*) as count FROM twitter_tags")
 		row = cur.fetchone()
@@ -71,14 +89,13 @@ def getTagsCount():
 #Poistaa vanhimmat tietokannan rivit
 def deleteOldestInstagram(week_old_id):
 	try:
-		con = sql3.connect("instagram.db")
 		cur = con.cursor()
-		cur.execute("SELECT mediaID FROM instagram_posts WHERE id < ?", (week_old_id,) )
+		cur.execute("SELECT mediaID FROM instagram_posts WHERE id < %s", (week_old_id,) )
 		rows = cur.fetchall()
 		tag_deletion = 'DELETE FROM instagram_tags WHERE mediaID IN (' + ','.join(str(r[0]) for r in rows) + ')'
 		cur.execute(tag_deletion)
 
-		cur.execute("DELETE FROM instagram_posts WHERE id < ?", (week_old_id,) )
+		cur.execute("DELETE FROM instagram_posts WHERE id < %s", (week_old_id,) )
 		con.commit()
 		con.close()
 	except Exception, e:
@@ -88,16 +105,15 @@ def deleteOldestInstagram(week_old_id):
 
 def deleteOldestTweets(week_old_id):
 	try:
-		con = sql3.connect("tweets.db")
 		cur = con.cursor()
-		
+	
 		#tagien poisto
-		cur.execute("SELECT tweetID FROM twitter_tweets WHERE id < ?", (week_old_id,) )
+		cur.execute("SELECT tweetID FROM twitter_tweets WHERE id < %s", (week_old_id,) )
 		rows = cur.fetchall()
 		tag_deletion = 'DELETE FROM twitter_tags WHERE tweetID IN (' + ','.join(str(r[0]) for r in rows) + ')'
 		cur.execute(tag_deletion)
 		#tweettien poisto
-		cur.execute("DELETE FROM twitter_tweets WHERE id < ?", (week_old_id,) )
+		cur.execute("DELETE FROM twitter_tweets WHERE id < %s", (week_old_id,) )
 		con.commit()
 		con.close()
 	except Exception, e:
@@ -115,9 +131,8 @@ def findInstagramThreshold():
 
 
 	try:
-		con = sql3.connect("instagram.db")
 		cur = con.cursor()
-		cur.execute("SELECT id FROM instagram_posts WHERE time LIKE ? LIMIT 1", (query,) )
+		cur.execute("SELECT id FROM instagram_posts WHERE time LIKE %s LIMIT 1", (query,) )
 		try:		
 			row = cur.fetchone()
 			con.close()
@@ -139,9 +154,8 @@ def findTwitterThreshold():
 	query = '%' + '%02d' % day + '.' + '%02d' % month + '%'
 
 	try:
-		con = sql3.connect("tweets.db")
 		cur = con.cursor()
-		cur.execute("SELECT id FROM twitter_tweets WHERE time LIKE ? LIMIT 1", (query,) )
+		cur.execute("SELECT id FROM twitter_tweets WHERE time LIKE %s LIMIT 1", (query,) )
 		try:		
 			row = cur.fetchone()
 			con.close()
@@ -153,6 +167,5 @@ def findTwitterThreshold():
 		print "Error &s:" % e.args[0]
 		con.close()
 		return None		
-
 
 sched.start()
