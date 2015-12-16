@@ -44,7 +44,6 @@ def fetchNewUpdate(amount=1):
 	global tag
 	print 'uusi instagram posti'
 	tagged_media, next_ = api.tag_recent_media(tag_name=tag, count=amount)
-	print str(tagged_media)
 	for media in tagged_media:
 		id = media.id
 		user = media.user.username
@@ -53,6 +52,7 @@ def fetchNewUpdate(amount=1):
 		timestamp = media.created_time
 		media_link = media.link #linkki paivitykseen
 		shortcode = media_link.split("/")[4]
+		print str(shortcode)
 		if (savetoDataBase(id,userID,user,timestamp,shortcode)):
 			print 'yksi instagram media tallennettu'
 			saveInstagramTags(id,str(comment))
@@ -74,6 +74,7 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE %s", (str(shortcode),))
 		row = cur.fetchone()
 		if row:
+			print 'on jo olemassa'
 			return False
 		cur.execute("INSERT INTO instagram_posts (mediaid, userid, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
