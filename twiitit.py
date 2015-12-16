@@ -36,7 +36,7 @@ def twiits():
 
 def hae_tagilla(req):
 	tagi = req["tagi"]
-
+	print tagi + '###'
 	try:
 		tweets = []
 		cur = con.cursor()

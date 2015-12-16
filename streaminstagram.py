@@ -42,7 +42,6 @@ def subscribeToTag(topic):
 #hakee uuden paivityksen ja paivittaa sen tietokantaan
 def fetchNewUpdate(amount=1):
 	global tag
-	print 'uusi instagram posti'
 	tagged_media, next_ = api.tag_recent_media(tag_name=tag, count=amount)
 	for media in tagged_media:
 		id = media.id
@@ -54,7 +53,6 @@ def fetchNewUpdate(amount=1):
 		shortcode = media_link.split("/")[4]
 		print str(shortcode)
 		if (savetoDataBase(id,userID,user,timestamp,shortcode)):
-			print 'yksi instagram media tallennettu'
 			saveInstagramTags(id,str(comment))
 		return True
 
@@ -74,14 +72,12 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE %s", (str(shortcode),))
 		row = cur.fetchone()
 		if row:
-			print 'on jo olemassa'
 			return False
 		cur.execute("INSERT INTO instagram_posts (mediaid, userid, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
 		con.close()
 	except Exception, e:
-		print "errori" 
 		print e
 		if con:
 			con.close()
@@ -102,16 +98,13 @@ def saveInstagramTags(id,caption):
 			host=url.hostname,
 			port=url.port
 		)
-		print 'vaihe 1'
 		#con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
 			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, str(tag)))
-		print 'vaihe 2'
 		con.commit()
 		con.close()
 	except Exception, e:
-		print "ei toiminut"
 		print e
 		if con:
 			con.close()
@@ -152,7 +145,7 @@ def callback():
 		if challenge:
 	 		return Response(challenge)
 	else: #POST
-			print 'post viesti'
+			print 'NEW INSTAGRAM POST IS AVAILABLE'
 	 		x_hub_signature = request.headers.get('X-Hub-Signature')
 			raw_response    = request.data
 			if raw_response:
