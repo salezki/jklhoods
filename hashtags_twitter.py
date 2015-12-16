@@ -21,7 +21,7 @@ def tagit_twitter():
 
 		top_hashtags = []
 		cur = con.cursor()
-		cur.execute('SELECT hashtag, COUNT(*) FROM twitter_tags GROUP BY hashtag ORDER BY 2 DESC LIMIT 7')
+		cur.execute('SELECT hashtag, COUNT(*) FROM twitter_tags GROUP BY hashtag ORDER BY 2 DESC LIMIT 8')
 		#filterointia varten
 		#cur.execute('SELECT tweet.id FROM twitter_tweets tweet INNER JOIN twitter_tags tag ON tweet.id = tag.id')
 		rows = cur.fetchall()
