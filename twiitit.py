@@ -37,7 +37,7 @@ def twiits():
 
 def hae_tagilla(req):
 	tagi_encoded = req["tagi"]
-	tagi = urllib.unquote(tagi_encoded);
+	tagi = urllib.unquote(str(tagi_encoded));
 	print tagi_encoded
 	print str(tagi)
 	try:
