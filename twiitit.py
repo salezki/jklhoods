@@ -39,11 +39,13 @@ def hae_tagilla(req):
 	tagi_encoded = req["tagi"]
 	tagi = urllib.unquote(str(tagi_encoded));
 	print tagi_encoded
+	print type(tagi)
 	print tagi.encode('utf-8')
+	print type(tagi.encode('utf-8'))
 	try:
 		tweets = []
 		cur = con.cursor()
-		cur.execute('SELECT twitter_tweets.tweetid FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetid = twitter_tags.tweetid AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (tagi)), )
+		cur.execute('SELECT twitter_tweets.tweetid FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetid = twitter_tags.tweetid AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (tagi_encoded,) )
 		rows = cur.fetchall()
 		for row in rows:
 			tweets.append([str(row[0])])
