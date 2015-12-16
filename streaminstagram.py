@@ -106,11 +106,12 @@ def saveInstagramTags(id,caption):
 		#con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
-			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, tag))
+			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, str(tag)))
 		print 'vaihe 2'
 		con.commit()
 		con.close()
 	except Exception, e:
+		print "ei toiminut"
 		print e
 		if con:
 			con.close()
