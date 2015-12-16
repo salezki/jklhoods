@@ -104,7 +104,7 @@ class ApplicationProcess(multiprocessing.Process):
     
 def startApp():
     global app
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT')), use_reloader=False)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT')), use_reloader=False)
     #app.run(host='localhost', port=8000, use_reloader=True, debug=True)
 
 
