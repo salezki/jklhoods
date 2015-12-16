@@ -23,7 +23,7 @@ CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/realtime'
 #CALLBACK_LOCAL = 'http://localhost:5000/oauth_callback'
 #CALLBACK_TUNNEL = 'https://nzmpqlpmhe.localtunnel.me/realtime' #lt --port 8000 --subdomain nzmpqlpmhe
 
-tag = 'jyväskylä'
+tag = 'jyvaskyla'
 subID = 0
 reactor = None
 
