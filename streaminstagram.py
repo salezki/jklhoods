@@ -70,6 +70,15 @@ def fetchNewUpdate(amount=1):
 
 def savetoDataBase(id,userID,user,timestamp,shortcode):
 	try:
+		if not con:
+			global con
+			con = psycopg2.connect(
+				database=url.path[1:],
+				user=url.username,
+				password=url.password,
+				host=url.hostname,
+				port=url.port
+			)
 		cur = con.cursor()
 		cur.execute("SELECT shortcode FROM instagram_posts WHERE shortcode LIKE %s", (str(shortcode),))
 		row = cur.fetchone()
@@ -79,6 +88,7 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
 	except Exception, e:
+		print "errori" 
 		print e
 		return False
 	return True
