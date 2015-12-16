@@ -88,14 +88,15 @@ def saveInstagramTags(id,caption):
 	tags = hashtaglist(caption)
 	print tags
 	try:
-		con.text_factory = str
+		print 'vaihe 1'
+		#con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
 			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, tag))
+		print 'vaihe 2'
 		con.commit()
 	except Exception, e:
 		print e
-	con.close()
 
 
 # http://stackoverflow.com/questions/6331497/an-elegant-way-to-get-hashtags-out-of-a-string-in-python
