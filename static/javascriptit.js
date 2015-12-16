@@ -2,8 +2,11 @@
 //asd
 window.onload = function(){
     alustus();
+    // twitteriStriimi(10);
     alustaInstagramit();
     alustaTwiitit();
+    //instagramBlock(10);
+    //fetchTweets();
     ajastin_twitter = setInterval(fetchTweets.bind(null, false), 5000);
 	ajastin_instagram = setInterval(fetchInstagram.bind(null, false), 5000);
 }
@@ -257,7 +260,7 @@ function haeTagillaInsta(tagi) {
     send = {"tagi" : tagi};
     $.ajax({
         dataType: "json",
-        method: "POST", 
+        method: "POST",
         url: "/hae_instagram_tagilla",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(send),
