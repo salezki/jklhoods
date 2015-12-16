@@ -4,6 +4,7 @@ import psycopg2
 import urlparse
 import sys
 from flask import jsonify
+import urllib
 
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
@@ -35,8 +36,9 @@ def twiits():
 
 
 def hae_tagilla(req):
-	tagi = req["tagi"]
-	print tagi + '###'
+	tagi_encoded = req["tagi"]
+	tagi = urllib.unquote(tagi_encoded);
+	print tagi
 	try:
 		tweets = []
 		cur = con.cursor()

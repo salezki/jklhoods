@@ -4,6 +4,7 @@ import psycopg2
 import urlparse
 import sys
 from flask import jsonify
+import urllib
 
 
 # Hae ensimmaista kertaa postit
