@@ -438,6 +438,7 @@ function haeSeuraavat_tweet() {
 
 function haeTagilla_tweet(tagi) {
     send = {"tagi" : tagi};
+	alert(JSON.stringify(send));
     $.ajax({
         dataType: "json",
         method: "POST",
