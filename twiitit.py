@@ -40,19 +40,18 @@ def hae_tagilla(req):
 	try:
 		tweets = []
 		cur = con.cursor()
-		cur.execute('SELECT twitter_tweets.tweetID FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetID = twitter_tags.tweetID AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (str(tagi), ))
+		cur.execute('SELECT twitter_tweets.tweetid FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetid = twitter_tags.tweetid AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (str(tagi), ))
 		rows = cur.fetchall()
 		for row in rows:
 			tweets.append([str(row[0])])
 		return jsonify(result=tweets)
-	except  e:
+	except Exception, e:
 		print e
 		sys.exit(1)
 
 def haes_tagilla(req):
 	tagi = req["tagi"]
 	tweetId = req["tweetId"]
-
 	try:
 		tweets = []
 		cur = con.cursor()
@@ -61,7 +60,7 @@ def haes_tagilla(req):
 		for row in rows:
 			tweets.append([str(row[0])])
 		return jsonify(result=tweets)
-	except e:
+	except Exception, e:
 		print e
 		sys.exit(1)
 
@@ -74,7 +73,7 @@ def fetchTweets(tweetId):
 		for row in rows:
 			data_tweet.append([str(row[0])])
 		return jsonify(result=data_tweet)
-	except e:
+	except Exception, e:
 		print e
 		sys.exit(1)
 
@@ -89,7 +88,7 @@ def fetchTagTweets(req):
 		for row in rows:
 			data_tweet.append([str(row[0])])
 		return jsonify(result=data_tweet)
-	except e:
+	except Exception, e:
 		print e
 		sys.exit(1)
 
@@ -102,6 +101,6 @@ def haeSeuraavat(tweetId):
 		for row in rows:
 			data_tweet.append([str(row[0])])
 		return jsonify(result=data_tweet)
-	except e:
+	except Exception, e:
 		print e
 		sys.exit(1)

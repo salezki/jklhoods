@@ -66,8 +66,6 @@ class Listener(StreamListener):
     def on_error(self, status):
     	if status == 420:
             print "testi"
-            return False
-    		#returning False in on_data disconnects the stream
         print status
 
 

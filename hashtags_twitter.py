@@ -28,7 +28,7 @@ def tagit_twitter():
 		for row in rows:
 			top_hashtags.append([row[0]])
 		return jsonify(result=top_hashtags)
-	except lite.Error, e:
+	except Exception, e:
 		print "Error &s:" % e.args[0]
 		sys.exit(1)
 	finally:

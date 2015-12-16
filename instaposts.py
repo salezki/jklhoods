@@ -29,12 +29,12 @@ def instagramPosts():
 				con.close()
 				continue
 		return jsonify(result=data)
-	except e:
+	except Exception, e:
 		print e
 		con.close()
 		sys.exit(1)
 			
-			
+		
 # Hakee uusimmat postit
 def fetchInstagram(shortcode):
 	try:
@@ -136,7 +136,7 @@ def hae_tagilla(req):
 			post.append([str(row[0])])
 		con.close()
 		return jsonify(result=post)
-	except e:
+	except Exception, e:
 		print e
 		con.close()
 		sys.exit(1)
@@ -163,7 +163,7 @@ def haes_tagilla(req):
 			posts.append([str(row[0])])
 		con.close()
 		return jsonify(result=posts)
-	except e:
+	except Exception, e:
 		print e
 		con.close()
 		sys.exit(1)
