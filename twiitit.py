@@ -4,7 +4,6 @@ import psycopg2
 import urlparse
 import sys
 from flask import jsonify
-import urllib
 
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
@@ -36,17 +35,12 @@ def twiits():
 
 
 def hae_tagilla(req):
-	tagi_encoded = req["tagi"]
-	tagi = urllib.unquote(str(tagi_encoded));
-	print tagi_encoded
-	print type(tagi)
-	print tagi
+	tagi = req["tagi"]
 	try:
 		tweets = []
 		cur = con.cursor()
-		cur.execute('SELECT twitter_tweets.tweetid FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetid = twitter_tags.tweetid AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (tagi_encoded,) )
+		cur.execute('SELECT twitter_tweets.tweetid FROM twitter_tweets, twitter_tags WHERE twitter_tweets.tweetid = twitter_tags.tweetid AND twitter_tags.hashtag LIKE %s ORDER BY id DESC LIMIT 10', (tagi,) )
 		rows = cur.fetchall()
-		print len(rows)
 		for row in rows:
 			tweets.append([str(row[0])])
 		return jsonify(result=tweets)

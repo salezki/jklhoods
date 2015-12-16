@@ -4,7 +4,6 @@ import psycopg2
 import urlparse
 import sys
 from flask import jsonify
-import urllib
 
 
 # Hae ensimmaista kertaa postit
@@ -35,7 +34,7 @@ def instagramPosts():
 		con.close()
 		sys.exit(1)
 			
-		
+			
 # Hakee uusimmat postit
 def fetchInstagram(shortcode):
 	try:
