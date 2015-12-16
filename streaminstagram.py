@@ -63,6 +63,7 @@ def fetchNewUpdate(amount=1):
 		media_link = media.link #linkki paivitykseen
 		shortcode = media_link.split("/")[4]
 		if (savetoDataBase(id,userID,user,timestamp,shortcode)):
+			print 'yksi instagram media tallennettu'
 			saveInstagramTags(id,str(comment))
 		return True
 
@@ -74,7 +75,7 @@ def savetoDataBase(id,userID,user,timestamp,shortcode):
 		row = cur.fetchone()
 		if row:
 			return False
-		cur.execute("INSERT INTO instagram_posts (mediaID, userID, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
+		cur.execute("INSERT INTO instagram_posts (mediaid, userid, username, time, shortcode) VALUES (%s, %s, %s, %s, %s)",
 			(str(id), str(userID), str(user), str(timestamp.strftime("%d.%m.%Y %H:%M")), str(shortcode)))
 		con.commit()
 	except Exception, e:

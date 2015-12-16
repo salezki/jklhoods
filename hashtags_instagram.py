@@ -31,8 +31,8 @@ def tagit_instagram():
 		for row in rows:
 			top_hashtags.append([row[0]])
 		return jsonify(result=top_hashtags)
-	except lite.Error, e:
-		print "Error &s:" % e.args[0]
+	except Exception, e:
+		print e
 		sys.exit(1)
 	finally:
 		if con:

@@ -37,11 +37,6 @@ con = psycopg2.connect(
 cur = con.cursor()
 
 
-def newTweets():
-    if new == 0:
-        return
-    
-
 class Listener(StreamListener):
 
     def on_data(self, data):

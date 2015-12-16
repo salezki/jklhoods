@@ -117,8 +117,8 @@ if __name__ == '__main__':
     flaskapp.start()
     tweetStream = multiprocessing.Process(target=streamtweet.runStream)
     tweetStream.start()
-    #instagramSubscription = multiprocessing.Process(target=initializeInstagram)
-    #instagramSubscription.start()
+    instagramSubscription = multiprocessing.Process(target=initializeInstagram)
+    instagramSubscription.start()
    
     while True:
         try:
