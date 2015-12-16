@@ -44,6 +44,7 @@ def fetchNewUpdate(amount=1):
 	global tag
 	print 'uusi instagram posti'
 	tagged_media, next_ = api.tag_recent_media(tag_name=tag, count=amount)
+	print str(tagged_media)
 	for media in tagged_media:
 		id = media.id
 		user = media.user.username
