@@ -19,11 +19,11 @@ CLIENT_SECRET= os.environ.get('INST_SECRET')
 ACCESS_TOKEN= os.environ.get('INST_TOKEN') 
 
 COUNT = 1
-CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/callback'
+CALLBACK_HEROKU = 'https://jklhoods.herokuapp.com/realtime'
 #CALLBACK_LOCAL = 'http://localhost:5000/oauth_callback'
 #CALLBACK_TUNNEL = 'https://nzmpqlpmhe.localtunnel.me/realtime' #lt --port 8000 --subdomain nzmpqlpmhe
 
-tag = 'jyvaskyla'
+tag = 'jyväskylä'
 subID = 0
 reactor = None
 
@@ -52,6 +52,7 @@ def subscribeToTag(topic):
 #hakee uuden paivityksen ja paivittaa sen tietokantaan
 def fetchNewUpdate(amount=1):
 	global tag
+	print 'uusi instagram posti'
 	tagged_media, next_ = api.tag_recent_media(tag_name=tag, count=amount)
 	for media in tagged_media:
 		id = media.id
@@ -89,7 +90,7 @@ def saveInstagramTags(id,caption):
 		con.text_factory = str
 		cur = con.cursor()
 		for tag in tags:
-			cur.execute("INSERT INTO instagram_tags (mediaID, hashtag) VALUES (%s, %s)", (id, tag))
+			cur.execute("INSERT INTO instagram_tags (mediaid, hashtag) VALUES (%s, %s)", (id, tag))
 		con.commit()
 	except Exception, e:
 		print e
