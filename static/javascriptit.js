@@ -437,7 +437,8 @@ function haeSeuraavat_tweet() {
 
 
 function haeTagilla_tweet(tagi) {
-    send = {"tagi" : tagi};
+    send = {"tagi" : encodeURIComponent(tagi)};
+	alert(encodeURIComponent(tagi));
     $.ajax({
         dataType: "json",
         method: "POST",
@@ -445,7 +446,7 @@ function haeTagilla_tweet(tagi) {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(send),
         success: function(data) {
-			alert("hm");
+			alert("a");
             $(".tweet").remove();
             var count = data['result'].length;
 			//alert(String(count));
