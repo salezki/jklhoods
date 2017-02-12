@@ -1,6 +1,0 @@
-CREATE TABLE twitter_tweets(id SERIAL NOT NULL, tweetID INT NOT NULL, time TEXT, username TEXT,screen_name TEXT);
-CREATE TABLE twitter_tags(tweetID INT NOT NULL, hashtag TEXT);
-CREATE TABLE instagram_posts(id SERIAL NOT NULL, mediaID TEXT NOT NULL, userID TEXT, username TEXT, time TEXT, shortcode TEXT);
-CREATE TABLE instagram_tags(mediaID TEXT NOT NULL, hashtag TEXT);
-
-SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
